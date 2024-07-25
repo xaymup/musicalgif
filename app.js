@@ -52,10 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 const data = await response.json();
                 const trackName = data.item ? data.item.name : 'No track playing';
-                if (trackName !== currentTrack) {
-                    currentTrack = trackName;
-                    trackNameElement.textContent = trackName;
-                    await getGifs(trackName);
+                const artistName = data.item && data.item.artists && data.item.artists.length > 0 ? data.item.artists[0].name : 'Unknown artist';
+                
+                if (artistName !== currentArtist) {
+                    currentArtist = artistName;
+                    trackNameElement.textContent = `${trackName} by ${currentArtist}`;
+                    await getGifs(currentArtist);
                 }
             } else {
                 trackNameElement.textContent = 'Error fetching track';
