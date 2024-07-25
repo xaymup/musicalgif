@@ -117,6 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Refresh the track and GIFs
-    setInterval(getCurrentTrack, 30000); // Check current track every 30 seconds
+    setInterval(getCurrentTrack, 5000); // Check current track every 30 seconds
     setInterval(showNextGif, 5000); // Change GIF every 5 seconds
 });
