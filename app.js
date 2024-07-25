@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTrackDiv = document.getElementById('current-track');
     
     const clientId = '6d4133f7becf4e8fbfa7ee955d938399'; // Replace with your Spotify Client ID
-    const redirectUri = 'YOUR_REDIRECT_URI'; // Replace with your redirect URI
+    const redirectUri = 'https://xaymup.me/musicalgif/'; // Replace with your redirect URI
     const scopes = 'user-read-currently-playing user-read-playback-state'; // Scope for accessing currently playing track
 
     let accessToken = '';
@@ -13,17 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let gifUrls = [];
     let gifIndex = 0;
 
-    // Authenticate user and get access token
     function authenticate() {
+        console.log('Redirecting to Spotify for authentication...');
         const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
         window.location.href = authUrl;
     }
 
     function getHashParams() {
         const hashParams = {};
-        const e;
         const r = /([^&;=]+)=([^&;]*)/g;
         const q = window.location.hash.substring(1);
+        let e;
         while (e = r.exec(q)) {
             hashParams[e[1]] = decodeURIComponent(e[2]);
         }
@@ -32,9 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setAccessToken() {
         const params = getHashParams();
-        accessToken = params.access_token;
-        currentTrackDiv.style.display = 'block';
-        getCurrentTrack(); // Fetch the current track
+        if (params.access_token) {
+            accessToken = params.access_token;
+            currentTrackDiv.style.display = 'block';
+            getCurrentTrack(); // Fetch the current track
+        } else {
+            console.error('Access token not found in URL');
+        }
     }
 
     async function getCurrentTrack() {
@@ -89,7 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    loginButton.addEventListener('click', authenticate);
+    loginButton.addEventListener('click', () => {
+        console.log('Login button clicked');
+        authenticate();
+    });
 
     // If access token exists in the URL hash, set it
     if (window.location.hash) {
