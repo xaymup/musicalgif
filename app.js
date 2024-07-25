@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scopes = 'user-read-currently-playing user-read-playback-state'; // Scope for accessing currently playing track
 
     let accessToken = '';
+    let currentArtist = '';
     let currentTrack = '';
     let gifUrls = [];
     let gifIndex = 0;
