@@ -71,20 +71,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function getGifs(query) {
         try {
-            const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=Pakh3p8hcMHgBD9VKAYez0dRpcpvNtu7Y&q=${encodeURIComponent(query)}&limit=10`);
-            const data = await response.json();
-
-            if (data.data.length > 0) {
-                gifUrls = data.data.map(gif => gif.images.original.url);
-                gifIndex = 0;
-                showNextGif();
+            const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=Pakh3p8hcMHgBD9VKAYez0dRpcpvNtu7&q=${encodeURIComponent(query)}&limit=10`);
+    
+            if (response.ok) {
+                const data = await response.json();
+    
+                if (data.data.length > 0) {
+                    gifUrls = data.data.map(gif => gif.images.original.url);
+                    gifIndex = 0;
+                    showNextGif();
+                } else {
+                    console.log('No GIFs found for query:', query);
+                    gifDisplay.src = ''; // Clear the display if no GIFs found
+                    gifUrls = [];
+                }
             } else {
-                gifDisplay.src = '';
+                console.error('Failed to fetch GIFs. Status:', response.status, 'Status Text:', response.statusText);
+                gifDisplay.src = ''; // Clear the display in case of error
                 gifUrls = [];
             }
         } catch (error) {
             console.error('Error fetching GIFs:', error);
-            gifDisplay.src = '';
+            gifDisplay.src = ''; // Clear the display in case of error
             gifUrls = [];
         }
     }
