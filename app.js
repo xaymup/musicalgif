@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function getGifs(query) {
         try {
-            const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=YOUR_GIPHY_API_KEY&q=${encodeURIComponent(query)}&limit=10`);
+            const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=Pakh3p8hcMHgBD9VKAYez0dRpcpvNtu7Y&q=${encodeURIComponent(query)}&limit=10`);
             const data = await response.json();
 
             if (data.data.length > 0) {
