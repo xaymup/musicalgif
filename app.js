@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function getGifs(query) {
         try {
-            const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=Pakh3p8hcMHgBD9VKAYez0dRpcpvNtu7&q=${encodeURIComponent(query)}&limit=10`);
+            const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=Pakh3p8hcMHgBD9VKAYez0dRpcpvNtu7&q=${encodeURIComponent(query)}&limit=25&offset=0&rating=r&lang=en&bundle=messaging_non_clips`);
     
             if (response.ok) {
                 const data = await response.json();
